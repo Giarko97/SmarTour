@@ -1,6 +1,10 @@
 # SmarTour
 
-Il progetto è in fase di sviluppo.
+SmarTour è un progetto che permette di creare un tour personalizzato selezionando dei TOI (Topic of Interest). L'applicazione selezionerà i POI (Point of Interest) più affini alle richieste dell'utente e selezionerà un percorso ottimale. 
+
+In questa prima fase di sviluppo ci siamo dedicati all'estrazione dei POI da OpenStreetMap e a determinare la pertinenza relativa ai TOI dei POI.
+
+Il progetto è ancora in fase di sviluppo.
 
 # Areaselection.js
 Classe che permette all'utente di visualizzare una mappa e di selezionare una regione dalla quale estrarre i POI. Mappa implementata tramite 'Leaflet'
