@@ -1,0 +1,34 @@
+[
+    {"toi-name":"Storia", "sub-toi":
+        [
+            {"toi-name":"Preistoria"},
+            {"toi-name":"Mondo Classico"},
+            {"toi-name":"Medioevo"},
+            {"toi-name":"Storia moderna e contemporanea"},
+            {"toi-name":"Altro"}
+        ]
+    },
+    {"toi-name":"Arte", "sub-toi":
+        [
+            {"toi-name":"Architettura"},
+            {"toi-name":"Pittura"},
+            {"toi-name":"Scultura"},
+            {"toi-name":"Musica"},
+            {"toi-name":"Altro"}
+        ]
+    },
+    {"toi-name":"Natura", "sub-toi":
+        [
+            {"toi-name":"Giardini zoologici"},
+            {"toi-name":"Parchi e orti botanici"},
+            {"toi-name":"Altro"}
+        ]
+    },
+    {"toi-name":"Religione", "sub-toi":
+        [
+            {"toi-name":"Cristianesimo"},
+            {"toi-name":"Altre religioni"},
+            {"toi-name":"Altro"}
+        ]
+    }
+]
