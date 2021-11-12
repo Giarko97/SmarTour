@@ -1,34 +1,34 @@
 [
-    {"toi-name":"Storia", "sub-toi":
+    {"toiname":"Storia", "sub-toi":
         [
-            {"toi-name":"Preistoria", "score":""},
-            {"toi-name":"Mondo Classico", "score":""},
-            {"toi-name":"Medioevo", "score":""},
-            {"toi-name":"Storia moderna e contemporanea", "score":""},
-            {"toi-name":"Altro", "score":""}
+            {"toiname":"Preistoria", "score":""},
+            {"toiname":"Mondo Classico", "score":""},
+            {"toiname":"Medioevo", "score":""},
+            {"toiname":"Storia moderna e contemporanea", "score":""},
+            {"toiname":"Altro", "score":""}
         ]
     },
-    {"toi-name":"Arte", "sub-toi":
+    {"toiname":"Arte", "sub-toi":
         [
-            {"toi-name":"Architettura", "score":""},
-            {"toi-name":"Pittura", "score":""},
-            {"toi-name":"Scultura", "score":""},
-            {"toi-name":"Musica", "score":""},
-            {"toi-name":"Altro", "score":""}
+            {"toiname":"Architettura", "score":""},
+            {"toiname":"Pittura", "score":""},
+            {"toiname":"Scultura", "score":""},
+            {"toiname":"Musica", "score":""},
+            {"toiname":"Altro", "score":""}
         ]
     },
-    {"toi-name":"Natura", "sub-toi":
+    {"toiname":"Natura", "sub-toi":
         [
-            {"toi-name":"Giardini zoologici", "score":""},
-            {"toi-name":"Parchi e orti botanici", "score":""},
-            {"toi-name":"Altro", "score":""}
+            {"toiname":"Giardini zoologici", "score":""},
+            {"toiname":"Parchi e orti botanici", "score":""},
+            {"toiname":"Altro", "score":""}
         ]
     },
-    {"toi-name":"Religione", "sub-toi":
+    {"toiname":"Religione", "sub-toi":
         [
-            {"toi-name":"Cristianesimo", "score":""},
-            {"toi-name":"Altre religioni", "score":""},
-            {"toi-name":"Altro", "score":""}
+            {"toiname":"Cristianesimo", "score":""},
+            {"toiname":"Altre religioni", "score":""},
+            {"toiname":"Altro", "score":""}
         ]
     }
 ]

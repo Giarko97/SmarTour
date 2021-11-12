@@ -1,34 +1,34 @@
 [
-    {"toi-name":"Storia", "sub-toi":
+    {"toiname":"Storia", "sub-toi":
         [
-            {"toi-name":"Preistoria"},
-            {"toi-name":"Mondo Classico"},
-            {"toi-name":"Medioevo"},
-            {"toi-name":"Storia moderna e contemporanea"},
-            {"toi-name":"Altro"}
+            {"toiname":"Preistoria"},
+            {"toiname":"Mondo Classico"},
+            {"toiname":"Medioevo"},
+            {"toiname":"Storia moderna e contemporanea"},
+            {"toiname":"Altro"}
         ]
     },
-    {"toi-name":"Arte", "sub-toi":
+    {"toiname":"Arte", "sub-toi":
         [
-            {"toi-name":"Architettura"},
-            {"toi-name":"Pittura"},
-            {"toi-name":"Scultura"},
-            {"toi-name":"Musica"},
-            {"toi-name":"Altro"}
+            {"toiname":"Architettura"},
+            {"toiname":"Pittura"},
+            {"toiname":"Scultura"},
+            {"toiname":"Musica"},
+            {"toiname":"Altro"}
         ]
     },
-    {"toi-name":"Natura", "sub-toi":
+    {"toiname":"Natura", "sub-toi":
         [
-            {"toi-name":"Giardini zoologici"},
-            {"toi-name":"Parchi e orti botanici"},
-            {"toi-name":"Altro"}
+            {"toiname":"Giardini zoologici"},
+            {"toiname":"Parchi e orti botanici"},
+            {"toiname":"Altro"}
         ]
     },
-    {"toi-name":"Religione", "sub-toi":
+    {"toiname":"Religione", "sub-toi":
         [
-            {"toi-name":"Cristianesimo"},
-            {"toi-name":"Altre religioni"},
-            {"toi-name":"Altro"}
+            {"toiname":"Cristianesimo"},
+            {"toiname":"Altre religioni"},
+            {"toiname":"Altro"}
         ]
     }
 ]
