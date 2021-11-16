@@ -1,0 +1,30 @@
+[
+    {
+        "id": 71,
+        "score": "0.8",
+        "name": "Colosseo",
+        "description": "Colosseo",
+        "lng": "12.355664515337262",
+        "lat": "43.11877984209093",
+        "visit_time": "90",
+        "max_capacity": "30",
+        "opening_times": [
+            {
+            "date_from": "1-ott",
+            "date_to": "30-giu",
+            "day_from": "lun",
+            "day_to": "ven",
+            "hour_from": "09:00",
+            "hour_to": "17:00"
+            },
+            {
+            "date_from": "1-lug",
+            "date_to": "30-set",
+            "day_from": "lun",
+            "day_to": "ven",
+            "hour_from": "09:00",
+            "hour_to": "18:00"
+            }
+        ]
+    }
+]

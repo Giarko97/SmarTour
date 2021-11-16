@@ -1,0 +1,52 @@
+{
+    "tags": {
+        "value1": {
+            "name": "amenity",
+            "values" : {
+                "a1" : "arts_centre",
+                "a2" : "fountain",
+                "a3" : "planetarium",
+                "a4" : "place_of_worship"
+            }
+        },
+        "value2": {
+            "name": "building",
+            "values" : {
+                "b1" : "cathedral",
+                "b2" : "church",
+                "b3" : "monastery",
+                "b4" : "mosque",
+                "b5" : "religious",
+                "b6" : "temple"    
+            }    
+        },
+        "value3": {
+            "name": "geological",
+            "values" : {
+                "g1" : "palaeontological_site"
+            }
+        },
+        "value4": {
+            "name": "historic",
+            "values" : {
+                "h1" : "aircraft",
+                "h2" : "aqueduct",
+                "h3" : "archaeological_site",
+                "h4" : "battlefield",
+                "h5" : "building",
+                "h6" : "castle",  
+                "h7" : "castle_wall",
+                "h8" : "church",
+                "h9" : "city_gate",
+                "h10" : "city_wall",
+                "h11" : "memorial",
+                "h12" : "monastery",
+                "h13" : "monument",
+                "h14" : "ruins",
+                "h15" : "ship",
+                "h16" : "tomb",
+                "h17" : "tower"
+            }                    
+        }
+    }
+} 

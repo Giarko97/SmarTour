@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="requiredStyle.css" />
+    </head>
+<body>
+    <div id="map"></div>    
+    <div id="result">
+        <div style="text-align: center">
+            <form method="get" name="form" action="app.php"> 
+                South west: 
+                <input type="text" class="sw" name="sw"><br>
+                
+                North east: 
+                <input type="text" class="ne" name="ne">
+                <br>
+                <br>
+                <input class="btn btn-primary" type="submit" value="Submit">
+            </form>          
+        </div>
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+    <script src="areaSelection.js"></script>
+    <script>
+        // initialize map in Tivoli city
+        var map = L.map('map').setView([41.959, 12.8], 14);
+        L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        
+        var areaSelect = L.areaSelect({width:200, height:250});
+        areaSelect.on("change", function() {
+            var bounds = this.getBounds();
+            $("#result .sw").val(bounds.getSouthWest().lat + " " + bounds.getSouthWest().lng);
+            $("#result .ne").val(bounds.getNorthEast().lat + " " + bounds.getNorthEast().lng);
+        });
+        areaSelect.addTo(map);
+        
+        $("#remove").click(function() {
+            areaSelect.remove();
+        });
+
+        $("#setDimensions").click(function () {
+            areaSelect.setDimensions({width: $('.width').val(), height: $('.height').val()})
+        })
+    </script>
+</body>

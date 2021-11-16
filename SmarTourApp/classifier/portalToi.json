@@ -1,0 +1,191 @@
+{
+    "tags": {
+        "value1": {
+            "name": "storia",
+            "macros" : {
+                "value1" : {
+                    "name" : "Preistoria",
+                    "values" : {
+                        "v" : "Preistoria"
+                    }
+                },
+                "value2" : {
+                    "name" : "Mondo Classico",
+                    "values" : {
+                        "v1" : "Antico Egitto",
+                        "v2" : "Antica Grecia",
+                        "v3" : "Magna Grecia e Sicilia greca",
+                        "v4" : "Ellenismo",
+                        "v5" : "AnticaRoma",
+                        "v6" : "Esercito romano",
+                        "v7" : "Età Augustea",
+                        "v8" : "Celti",
+                        "v9" : "Cartagine",
+                        "v10" : "Etruschi",
+                        "v11" : "Germani",
+                        "v12" : "Mitologia",
+                        "v13" : "Mitologia greca",
+                        "v14" : "Storia antica",
+                        "v15" : "Età classica",
+                        "v16" : "Periodo classico"
+                    }
+                },
+                "value3" : {
+                    "name" : "Medioevo",
+                    "values" : {
+                        "v1" : "Medioevo",
+                        "v2" : "Longobardi",
+                        "v3" : "Bisanzio",
+                        "v4" : "Crociate",
+                        "v5" : "Medici",
+                        "v6" : "Savoia",
+                        "v7" : "Gonzaga"
+                    }
+                },
+                "value4" : {
+                    "name" : "Storia moderna e contemporanea",
+                    "values" : {
+                        "v1" : "Risorgimento",
+                        "v2" : "Due Sicilie",
+                        "v3" : "Campagna garibaldina del 1866",
+                        "v4" : "Medici",
+                        "v5" : "Savoia",
+                        "v6" : "Gonzaga",
+                        "v7" : "Conquista spagnola delle Americhe",
+                        "v8" : "Grande Guerra",
+                        "v9" : "Guerra fredda",
+                        "v10" : "Guerre napoleoniche",
+                        "v11" : "Rivoluzione francese",
+                        "v12" : "Seconda guerra mondiale",
+                        "v13" : "Storia moderna",
+                        "v14" : "Storia contemporanea"
+                    }
+                },
+                "value5" : {
+                    "name" : "Altro",
+                    "values" : {
+                        "v1" : "Storia",
+                        "v2" : "Archeologia",
+                        "v3" : "Storia d'Italia"
+                    }
+                }
+            }
+        },
+        
+        "value2": {
+            "name": "arte",
+            "macros" : {
+                "value1":{
+                    "name" : "Architettura",
+                    "values" : {
+                        "v1" : "Architettura",
+                        "v2" : "Design"
+                    }
+                },
+                "value2" : {
+                    "name" : "Pittura",
+                    "values" : {
+                        "v1" : "Pittura",
+                        "v2" : "Writing"
+                    }
+                },
+                "value3" : {
+                    "name" : "Scultura",
+                    "values" : {
+                        "v1" : "Scultura"
+                    }
+                },
+                "value4" : {
+                    "name" : "Musica",
+                    "values" : {
+                        "v1" : "Musica",
+                        "v2" : "Teatro",
+                        "v3" : "Danza"
+                    }
+                },
+                "value5" : {
+                    "name" : "Altro",
+                    "values" : {
+                        "v1" : "Arte",
+                        "v2" : "Fotografia",
+                        "v3" : "Letteratura",
+                        "v4" : "Spettacolo",
+                        "v5" : "Cinema",
+                        "v6" : "Musei",
+                        "v7" : "Modellismo"
+                    }
+                }
+            }
+        },
+        
+        "value3" : {
+            "name": "natura",
+            "macros" : {
+                "value1":{
+                    "name" : "Giardini zoologici",
+                    "values" : {
+                        "v1" : "Animali",
+                        "v2" : "Biologia",
+                        "v3" : "Giardino zoologico"
+                    }
+                },
+                "value2" : {
+                    "name" : "Parchi e orti botanici",
+                    "values" : {
+                        "v1" : "Ecologia e ambiente",
+                        "v2" : "Botanica",
+                        "v" : "Parco cittadino"
+                    }
+                },
+                "value3" : {
+                    "name" : "Altro",
+                    "values" : {
+                        "v1" : "Astronomia",
+                        "v2" : "Stelle",
+                        "v3" : "Sistema solare",
+                        "v4" : "Oggetti del profondo cielo",
+                        "v5" : "Geologia",
+                        "v6" : "Natura"
+                    }
+                }
+            }
+        },
+
+        
+        "value4": {
+                "name": "Religione",
+                "macros" : {
+                "value1" : {
+                    "name" : "Cristianesimo",
+                    "values" : {
+                        "v1" : "Cristianesimo",
+                        "v2" : "Calvinismo",
+                        "v3" : "Cattolicesimo",
+                        "v4" : "Gesù",
+                        "v5" : "Ortodossia"
+                    }
+                },
+                "value2" : {
+                    "name" : "Altre religioni",
+                    "values" : {
+                        "v1" : "Ebraismo",
+                        "v2" : "Induismo",
+                        "v3" : "Islam",
+                        "v4" : "Buddhismo",
+                        "v5" : "Shintoismo",
+                        "v6" : "Sikhismo",
+                        "v7" : "Taoismo",
+                        "v8" : "Zorotraismo"
+                    }
+                },
+                "value3" : {
+                    "name" : "Altro",
+                    "values" : {
+                        "v1" : "Religione",
+                        "v2" : "Divinazione"
+                    }
+                }
+            }
+        }
+    }
+}

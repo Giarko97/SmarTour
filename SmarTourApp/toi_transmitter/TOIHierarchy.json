@@ -1,0 +1,90 @@
+[
+    {
+        "id": 1,
+        "name": "Storia",
+        "item": [
+            {
+                "id": 11,
+                "name": "Preistoria"
+            },
+            {
+                "id": 12,
+                "name": "Mondo classico"
+            },
+            {
+                "id": 13,
+                "name": "Medioevo"
+            },
+            {
+                "id": 14,
+                "name": "Storia moderna e contemporanea"
+            },
+            {
+                "id": 15,
+                "name": "Altro"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Arte",
+        "item": [
+            {
+                "id": 21,
+                "name": "Architettura"
+            },
+            {
+                "id": 22,
+                "name": "Pittura"
+            },
+            {
+                "id": 23,
+                "name": "Scultura"
+            },
+            {
+                "id": 24,
+                "name": "Musica"
+            },
+            {
+                "id": 25,
+                "name": "Altro"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Natura",
+        "item": [
+            {
+                "id": 31,
+                "name": "Giardini zoologici"
+            },
+            {
+                "id": 32,
+                "name": "Parchi e orti botanici"
+            },
+            {
+                "id": 33,
+                "name": "Altro"
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Religione",
+        "item": [
+            {
+                "id": 41,
+                "name": "Cristianesimo"
+            },
+            {
+                "id": 42,
+                "name": "Altre religioni"
+            },
+            {
+                "id": 43,
+                "name": "Altro"
+            }
+        ]
+    }
+]

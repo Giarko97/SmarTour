@@ -1,0 +1,106 @@
+[
+    {
+        "id": 1,
+        "name": "Storia",
+        "item": [
+            {
+                "id": 11,
+                "name": "Preistoria",
+                "pref": 4
+            },
+            {
+                "id": 12,
+                "name": "Mondo classico",
+                "pref": 2
+            },
+            {
+                "id": 13,
+                "name": "Medioevo",
+                "pref": 1
+            },
+            {
+                "id": 14,
+                "name": "Storia moderna e contemporanea",
+                "pref": 1
+            },
+            {
+                "id": 15,
+                "name": "Altro",
+                "pref": 2
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Arte",
+        "item": [
+            {
+                "id": 21,
+                "name": "Architettura",
+                "pref": 5
+            },
+            {
+                "id": 22,
+                "name": "Pittura",
+                "pref": 1
+            },
+            {
+                "id": 23,
+                "name": "Scultura",
+                "pref": 3
+            },
+            {
+                "id": 24,
+                "name": "Musica",
+                "pref": 5
+            },
+            {
+                "id": 25,
+                "name": "Altro",
+                "pref": 0
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Natura",
+        "item": [
+            {
+                "id": 31,
+                "name": "Giardini zoologici",
+                "pref": 0
+            },
+            {
+                "id": 32,
+                "name": "Parchi e orti botanici",
+                "pref": 5
+            },
+            {
+                "id": 33,
+                "name": "Altro",
+                "pref": 3
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Religione",
+        "item": [
+            {
+                "id": 41,
+                "name": "Cristianesimo",
+                "pref": 1
+            },
+            {
+                "id": 42,
+                "name": "Altre religioni",
+                "pref": 2
+            },
+            {
+                "id": 43,
+                "name": "Altro",
+                "pref": 0
+            }
+        ]
+    }
+]
