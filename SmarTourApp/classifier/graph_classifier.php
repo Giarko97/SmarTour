@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '\..\vendor\autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 require 'pdo.php';
 require 'neo4jconnector.php';
 use Laudis\Neo4j\Authentication\Authenticate;
@@ -163,6 +163,7 @@ final class WikipediaClassifier{
                 }
             }
         }
+        echo("Finita classificazione per la città di ".$city);
     }
     /**
      * Return the array containing the association between TOI and Wikipedia pages.

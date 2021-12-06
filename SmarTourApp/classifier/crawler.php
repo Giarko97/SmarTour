@@ -1,6 +1,7 @@
 <?php
-require __DIR__ . '\..\vendor\autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 require 'neo4jconnector.php';
+require 'pdo.php';
 use Laudis\Neo4j\Authentication\Authenticate;
 use Laudis\Neo4j\ClientBuilder;
 use Laudis\Neo4j\Contracts\TransactionInterface;
@@ -86,7 +87,7 @@ final class Crawler{
      * @param string $city String containing the city of the POI to insert in the queue.
      */
     public final function loadCityPOI(string $city){
-        $query = $this->pdo->query("SELECT names, wikipedia, position FROM poi WHERE wikipedia != '' AND position = '$city'");
+        $query = $this->pdo->query("SELECT names, wikipedia, position FROM poi WHERE wikipedia IS NOT NULL AND position = '$city'");
         foreach($query as $row){
             $next = [
                 "title" => $row['wikipedia'],
@@ -117,6 +118,11 @@ final class Crawler{
     public final function addNewElement($element){
         $this->queue->push($element);
         $this->checkEnd[$element['title']] = self::$toitemplate;
+        $query_res = $this->client->run('CREATE (poi:Wikipage {nome: $poi, depth:$poidepth, root:$poi})',
+                                ["poi" => $element['title'],
+                                "poidepth" => $element['depth']
+                                ],
+            );
     }
 
     /**
@@ -250,10 +256,9 @@ final class Crawler{
                         $clean = ucfirst($clean);
                         if(preg_match('/.*secolo.*/', $clean) === 0 and $clean != "" and preg_match('/File:.*/',$link)=== 0){
                             try{
-                                $query_res = $this->client->run('MERGE (poi:Wikipage{nome: $poi}) ON CREATE SET poi.depth=$poidepth, poi.root=$poi WITH poi MERGE (l:Wikipage{nome: $link}) ON CREATE SET l.depth=$depth, l.root=poi.root ON MATCH SET l.root=l.root+","+poi.root WITH poi, l MERGE (poi)-[r:Contiene]->(l) RETURN l',
+                                $query_res = $this->client->run('MERGE (poi:Wikipage{nome: $poi}) MERGE (l:Wikipage{nome: $link}) ON CREATE SET l.depth=$depth, l.root=poi.root ON MATCH SET l.root=l.root+","+poi.root WITH poi, l MERGE (poi)-[r:Contiene]->(l) RETURN l',
                                     ["poi" => $data['parse']['title'],
                                     "link" => $clean,
-                                    "poidepth" => $poi['depth'],
                                     "depth" => $poi['depth']+1
                                     ],
                                 );
@@ -285,11 +290,13 @@ final class Crawler{
                                     }
                                     else{
                                         //NAVIGARE ARRAY CHECK E COPIARE VALORE NEI VALORI DEI SEED DEL POI PRESO IN CONSIDERAZIONE
-                                        $active_keys = array_keys($this->checkEnd[$clean]);
-                                        foreach($active_keys as $key){
-                                            foreach($roots as $seed){
-                                                if($this->checkEnd[$clean][$key])
-                                                    $this->checkEnd[$seed][$key] = true;
+                                        if(isset($this->checkEnd[$clean])){
+                                            $active_keys = array_keys($this->checkEnd[$clean]);
+                                            foreach($active_keys as $key){
+                                                foreach($roots as $seed){
+                                                    if($this->checkEnd[$clean][$key])
+                                                        $this->checkEnd[$seed][$key] = true;
+                                                }
                                             }
                                         }
                                     }
@@ -350,8 +357,12 @@ final class Crawler{
                     }
                 }
             }
-            if($this->check())
+            echo($poi['title']." processed.");
+            echo("<br>");
+            if($this->check()){
+                echo("Crawler ended correctly");
                 break;
+            }
         }
     }
 }
