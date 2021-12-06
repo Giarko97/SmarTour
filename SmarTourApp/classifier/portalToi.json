@@ -1,7 +1,7 @@
 {
     "tags": {
         "value1": {
-            "name": "storia",
+            "name": "Storia",
             "macros" : {
                 "value1" : {
                     "name" : "Preistoria",
@@ -12,19 +12,19 @@
                 "value2" : {
                     "name" : "Mondo Classico",
                     "values" : {
-                        "v1" : "Antico Egitto",
-                        "v2" : "Antica Grecia",
-                        "v3" : "Magna Grecia e Sicilia greca",
-                        "v4" : "Ellenismo",
-                        "v5" : "AnticaRoma",
-                        "v6" : "Esercito romano",
-                        "v7" : "Età Augustea",
-                        "v8" : "Celti",
-                        "v9" : "Cartagine",
-                        "v10" : "Etruschi",
-                        "v11" : "Germani",
-                        "v12" : "Mitologia",
-                        "v13" : "Mitologia greca",
+                        "v1" : "Portale:Antico Egitto",
+                        "v2" : "Portale:Antica Grecia",
+                        "v3" : "Portale:Magna Grecia e Sicilia greca",
+                        "v4" : "Portale:Ellenismo",
+                        "v5" : "Portale:AnticaRoma",
+                        "v6" : "Portale:Esercito romano",
+                        "v7" : "Portale:Età Augustea",
+                        "v8" : "Portale:Celti",
+                        "v9" : "Portale:Cartagine",
+                        "v10" : "Portale:Etruschi",
+                        "v11" : "Portale:Germani",
+                        "v12" : "Portale:Mitologia",
+                        "v13" : "Portale:Mitologia greca",
                         "v14" : "Storia antica",
                         "v15" : "Età classica",
                         "v16" : "Periodo classico"
@@ -33,30 +33,31 @@
                 "value3" : {
                     "name" : "Medioevo",
                     "values" : {
-                        "v1" : "Medioevo",
-                        "v2" : "Longobardi",
-                        "v3" : "Bisanzio",
-                        "v4" : "Crociate",
-                        "v5" : "Medici",
-                        "v6" : "Savoia",
-                        "v7" : "Gonzaga"
+                        "v1" : "Portale:Medioevo",
+                        "v2" : "Portale:Longobardi",
+                        "v3" : "Portale:Bisanzio",
+                        "v4" : "Portale:Crociate",
+                        "v5" : "Portale:Medici",
+                        "v6" : "Portale:Savoia",
+                        "v7" : "Portale:Gonzaga",
+                        "v8" : "Medioevo"
                     }
                 },
                 "value4" : {
                     "name" : "Storia moderna e contemporanea",
                     "values" : {
-                        "v1" : "Risorgimento",
-                        "v2" : "Due Sicilie",
-                        "v3" : "Campagna garibaldina del 1866",
-                        "v4" : "Medici",
-                        "v5" : "Savoia",
-                        "v6" : "Gonzaga",
-                        "v7" : "Conquista spagnola delle Americhe",
-                        "v8" : "Grande Guerra",
-                        "v9" : "Guerra fredda",
-                        "v10" : "Guerre napoleoniche",
-                        "v11" : "Rivoluzione francese",
-                        "v12" : "Seconda guerra mondiale",
+                        "v1" : "Portale:Risorgimento",
+                        "v2" : "Portale:Due Sicilie",
+                        "v3" : "Portale:Campagna garibaldina del 1866",
+                        "v4" : "Portale:Medici",
+                        "v5" : "Portale:Savoia",
+                        "v6" : "Portale:Gonzaga",
+                        "v7" : "Portale:Conquista spagnola delle Americhe",
+                        "v8" : "Portale:Grande Guerra",
+                        "v9" : "Portale:Guerra fredda",
+                        "v10" : "Portale:Guerre napoleoniche",
+                        "v11" : "Portale:Rivoluzione francese",
+                        "v12" : "Portale:Seconda guerra mondiale",
                         "v13" : "Storia moderna",
                         "v14" : "Storia contemporanea"
                     }
@@ -64,87 +65,87 @@
                 "value5" : {
                     "name" : "Altro",
                     "values" : {
-                        "v1" : "Storia",
-                        "v2" : "Archeologia",
-                        "v3" : "Storia d'Italia"
+                        "v1" : "Portale:Storia",
+                        "v2" : "Portale:Archeologia",
+                        "v3" : "Portale:Storia d'Italia"
                     }
                 }
             }
         },
         
         "value2": {
-            "name": "arte",
+            "name": "Arte",
             "macros" : {
                 "value1":{
                     "name" : "Architettura",
                     "values" : {
-                        "v1" : "Architettura",
-                        "v2" : "Design"
+                        "v1" : "Portale:Architettura",
+                        "v2" : "Portale:Design"
                     }
                 },
                 "value2" : {
                     "name" : "Pittura",
                     "values" : {
-                        "v1" : "Pittura",
-                        "v2" : "Writing"
+                        "v1" : "Portale:Pittura",
+                        "v2" : "Portale:Writing"
                     }
                 },
                 "value3" : {
                     "name" : "Scultura",
                     "values" : {
-                        "v1" : "Scultura"
+                        "v1" : "Portale:Scultura"
                     }
                 },
                 "value4" : {
                     "name" : "Musica",
                     "values" : {
-                        "v1" : "Musica",
-                        "v2" : "Teatro",
-                        "v3" : "Danza"
+                        "v1" : "Portale:Musica",
+                        "v2" : "Portale:Teatro",
+                        "v3" : "Portale:Danza"
                     }
                 },
                 "value5" : {
                     "name" : "Altro",
                     "values" : {
-                        "v1" : "Arte",
-                        "v2" : "Fotografia",
-                        "v3" : "Letteratura",
-                        "v4" : "Spettacolo",
-                        "v5" : "Cinema",
-                        "v6" : "Musei",
-                        "v7" : "Modellismo"
+                        "v1" : "Portale:Arte",
+                        "v2" : "Portale:Fotografia",
+                        "v3" : "Portale:Letteratura",
+                        "v4" : "Portale:Spettacolo",
+                        "v5" : "Portale:Cinema",
+                        "v6" : "Portale:Musei",
+                        "v7" : "Portale:Modellismo"
                     }
                 }
             }
         },
         
         "value3" : {
-            "name": "natura",
+            "name": "Natura",
             "macros" : {
                 "value1":{
                     "name" : "Giardini zoologici",
                     "values" : {
-                        "v1" : "Animali",
-                        "v2" : "Biologia",
+                        "v1" : "Portale:Animali",
+                        "v2" : "Portale:Biologia",
                         "v3" : "Giardino zoologico"
                     }
                 },
                 "value2" : {
                     "name" : "Parchi e orti botanici",
                     "values" : {
-                        "v1" : "Ecologia e ambiente",
-                        "v2" : "Botanica",
+                        "v1" : "Portale:Ecologia e ambiente",
+                        "v2" : "Portale:Botanica",
                         "v" : "Parco cittadino"
                     }
                 },
                 "value3" : {
                     "name" : "Altro",
                     "values" : {
-                        "v1" : "Astronomia",
-                        "v2" : "Stelle",
-                        "v3" : "Sistema solare",
-                        "v4" : "Oggetti del profondo cielo",
-                        "v5" : "Geologia",
+                        "v1" : "Portale:Astronomia",
+                        "v2" : "Portale:Stelle",
+                        "v3" : "Portale:Sistema solare",
+                        "v4" : "Portale:Oggetti del profondo cielo",
+                        "v5" : "Portale:Geologia",
                         "v6" : "Natura"
                     }
                 }
@@ -158,31 +159,31 @@
                 "value1" : {
                     "name" : "Cristianesimo",
                     "values" : {
-                        "v1" : "Cristianesimo",
-                        "v2" : "Calvinismo",
-                        "v3" : "Cattolicesimo",
-                        "v4" : "Gesù",
-                        "v5" : "Ortodossia"
+                        "v1" : "Portale:Cristianesimo",
+                        "v2" : "Portale:Calvinismo",
+                        "v3" : "Portale:Cattolicesimo",
+                        "v4" : "Portale:Gesù",
+                        "v5" : "Portale:Ortodossia"
                     }
                 },
                 "value2" : {
                     "name" : "Altre religioni",
                     "values" : {
-                        "v1" : "Ebraismo",
-                        "v2" : "Induismo",
-                        "v3" : "Islam",
-                        "v4" : "Buddhismo",
-                        "v5" : "Shintoismo",
-                        "v6" : "Sikhismo",
-                        "v7" : "Taoismo",
-                        "v8" : "Zorotraismo"
+                        "v1" : "Portale:Ebraismo",
+                        "v2" : "Portale:Induismo",
+                        "v3" : "Portale:Islam",
+                        "v4" : "Portale:Buddhismo",
+                        "v5" : "Portale:Shintoismo",
+                        "v6" : "Portale:Sikhismo",
+                        "v7" : "Portale:Taoismo",
+                        "v8" : "Portale:Zorotraismo"
                     }
                 },
                 "value3" : {
                     "name" : "Altro",
                     "values" : {
-                        "v1" : "Religione",
-                        "v2" : "Divinazione"
+                        "v1" : "Portale:Religione",
+                        "v2" : "Portale:Divinazione"
                     }
                 }
             }
