@@ -1,0 +1,6 @@
+{
+    "require": {
+        "php-ds/php-ds": "^1.3",
+        "laudis/neo4j-php-client": "^2.2"
+    }
+}
