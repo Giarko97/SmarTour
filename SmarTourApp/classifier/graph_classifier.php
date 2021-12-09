@@ -6,12 +6,8 @@ use Laudis\Neo4j\Authentication\Authenticate;
 use Laudis\Neo4j\ClientBuilder;
 use Laudis\Neo4j\Contracts\TransactionInterface;
 final class WikipediaClassifier{
-    private CONST server = "127.0.0.1";
-    private CONST username = "root";
-    private CONST password = "";
-    private CONST db = "poidb";
-    private CONST NORMALIZATION_FACTOR = 100;
-    private CONST MAX = 5;
+    private CONST NORMALIZATION_FACTOR = 6;
+    private CONST MAX_RELEVANCE = 5;
     /**
      * @var neo4j client for connection with neo4j database
      */
@@ -44,8 +40,8 @@ final class WikipediaClassifier{
                 $link_array = [];
                 foreach($secondLevelTOI['values'] as $wikipage){
                     $arr = [
-                        "page"=> $wikipage,
-                        // "weight"=> ""
+                        "page"=> $wikipage['page'],
+                        "weight"=> $wikipage['weight']
                     ];
                     array_push($link_array, $arr);
                 }
@@ -79,8 +75,8 @@ final class WikipediaClassifier{
                             ]);
                             try{
                                 $dist = $graph_query->first()->first()->getValue();
-                                if($dist*self::MAX / $weight < $min_distance)
-                                    $min_distance = $dist*self::MAX / $weight;
+                                if($dist*self::MAX_RELEVANCE / $weight < $min_distance)
+                                    $min_distance = $dist*self::MAX_RELEVANCE / $weight;
                             }catch(Exception $e){
                                 //DO NOTHING BECAUSE THERE IS NO PATH
                             }
@@ -113,8 +109,8 @@ final class WikipediaClassifier{
                 $link_array = [];
                 foreach($secondLevelTOI['values'] as $wikipage){
                     $arr = [
-                        "page"=> $wikipage,
-                        // "weight"=> ""
+                        "page"=> $wikipage['page'],
+                        "weight"=> $wikipage["weight"]
                     ];
                     array_push($link_array, $arr);
                 }
@@ -129,10 +125,11 @@ final class WikipediaClassifier{
             $toi_array[$row['toi1.names']][$row['toi2.names']]['id'] = $row['toi2.id'];
         }
         $poi_query = $this->pdo->query("SELECT names, wikipedia FROM poi 
-                            WHERE position = '$city' AND names NOT IN 
+                            WHERE position = '$city' AND wikipedia IS NOT NULL AND names NOT IN 
                             (SELECT poi FROM score_portal");
         foreach($poi_query as $row){
             $poi = $row['wikipedia'];
+            $poi = preg_replace('/_/',' ', $poi);
             foreach($toi_array as $firstleveltoi){
                 foreach($firstleveltoi as $secondleveltoi){
                     $id = $secondleveltoi['id'];
@@ -141,17 +138,18 @@ final class WikipediaClassifier{
                         $weight = $wikipage['weight'];
                         $page = $wikipage['page'];
                         try{
-                            $graph_query = $this->neo4j->run('MATCH (poi:Wikipage {nome:$poi} MATCH (toi {nome:$toi}) MATCH p=shortestPath((poi)-[*..20]->(toi) RETURN length(p)',
+                            $graph_query = $this->neo4j->run('MATCH (poi:Wikipage {nome:$poi} MATCH (toi {nome:$toi}) MATCH p=shortestPath((poi)-[*..10]->(toi)) RETURN length(p)',
                             [
                                 "poi"=>$poi,
                                 "toi"=>$page
                             ]);
                             try{
                                 $dist = $graph_query->first()->first()->getValue();
-                                if($dist*self::MAX / $weight < $min_distance)
-                                    $min_distance = $dist*self::MAX / $weight;
+                                if($dist*self::MAX_RELEVANCE / $weight < $min_distance)
+                                    $min_distance = $dist*self::MAX_RELEVANCE / $weight;
                             }catch(Exception $e){
                                 //DO NOTHING BECAUSE THERE IS NO PATH
+                                echo("No path with current TOI link.");
                             }
                         }catch(Throwable $t){
                             echo("Error with query");
@@ -179,8 +177,8 @@ final class WikipediaClassifier{
                 $link_array = [];
                 foreach($secondLevelTOI['values'] as $wikipage){
                     $arr = [
-                        "page"=> $wikipage,
-                        // "weight"=> ""
+                        "page"=> $wikipage['page'],
+                        "weight"=> $wikipage['weight']
                     ];
                     array_push($link_array, $arr);
                 }

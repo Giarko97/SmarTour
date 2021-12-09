@@ -23,17 +23,22 @@ final class Crawler{
     private $queue;
 
     /**
-     * @var ckeckEnd array to check connectivity for early crawler ending.
+     * @var Array checkEnd array to check connectivity for early crawler ending.
      */
     private $checkEnd;
 
     /**
-     * @var toitemplate template array for the insertion of new poi.
+     * @var Array array containing all starting POI.
+     */
+    private $seedlist;
+
+    /**
+     * @var array toitemplate template array for the insertion of new poi.
      */
     private static array $toitemplate;
 
     /**
-     * @var toiportal array for association between toi and wikipages given a wikipage.
+     * @var array toiportal array for association between toi and wikipages given a wikipage.
      */
     private static array $toiportal;
 
@@ -51,6 +56,7 @@ final class Crawler{
         $this->client = connectNeo4j();
         $this->pdo = connessione();
         $this->checkEnd = [];
+        $this->seedlist = [];
         $portal_assoc = file_get_contents('toiPortal.json');
         self::$toiportal = json_decode($portal_assoc, true);
         $portal_file = file_get_contents('toilist.json');
@@ -123,6 +129,7 @@ final class Crawler{
                                 "poidepth" => $element['depth']
                                 ],
             );
+        array_push($this->seedlist, $element['title']);
     }
 
     /**
@@ -210,8 +217,8 @@ final class Crawler{
      *
      */
     private function check(){
-        foreach($this->checkEnd as $poi){
-            foreach($poi as $toi){
+        foreach($this->seedlist as $poi){
+            foreach($this->checkEnd[$poi] as $toi){
                 if(!$toi)
                     return $toi;
             }
@@ -225,10 +232,13 @@ final class Crawler{
      */
     public final function crawl(){
         $endPoint = "https://it.wikipedia.org/w/api.php";
+        $lastDepth = 0;           //VARIABILE PER CAPIRE QUANDO EFFETTUARE SCANSIONE CONTROLLO CONNESSIONE
         while(!$this->queue->isEmpty()){
             $poi = $this->queue->pop();
             $roots = $this->getRoots($poi['title']);
             $roots = array_unique($roots);
+            $poi['title'] = preg_replace('/_/',' ', $poi['title']);
+            $title = $poi['title'];
             $params = [
                 "action" => "parse",
                 "page" => $poi['title'],
@@ -254,10 +264,10 @@ final class Crawler{
                     if(preg_match('/\d+.*/', $link) === 0){
                         $clean = preg_replace('/\[\[([^\d|#]*)[|#]?([^\d]*?)\]\]/', '$1', $link);
                         $clean = ucfirst($clean);
-                        if(preg_match('/.*secolo.*/', $clean) === 0 and $clean != "" and preg_match('/File:.*/',$link)=== 0){
+                        if(preg_match('/.*secolo.*/', $clean) === 0 and $clean != "" and preg_match('/File:.*/',$link)=== 0 and preg_match('/Immagine:.*/',$link)===0){
                             try{
                                 $query_res = $this->client->run('MERGE (poi:Wikipage{nome: $poi}) MERGE (l:Wikipage{nome: $link}) ON CREATE SET l.depth=$depth, l.root=poi.root ON MATCH SET l.root=l.root+","+poi.root WITH poi, l MERGE (poi)-[r:Contiene]->(l) RETURN l',
-                                    ["poi" => $data['parse']['title'],
+                                    ["poi" => $poi['title'],
                                     "link" => $clean,
                                     "depth" => $poi['depth']+1
                                     ],
@@ -277,7 +287,6 @@ final class Crawler{
                                         }
                                     }
                                 }
-                                // $query_res->first()->first()->getValue()->getProperty('visitato');
                                 foreach($query_res->first() as $node){
                                     if(!isset($node['visitato'])){
                                         if($poi['depth'] < self::THRESHOLD){
@@ -314,41 +323,30 @@ final class Crawler{
                     }
                 }
             }
-            $this->client->run('MATCH (poi:Wikipage{nome: $poi}) SET poi.visitato = true',
-                ["poi" => $data['parse']['title']
-                ],
-            );
             $port_url = $endPoint . "?" . http_build_query($link_params);
             $link_json = file_get_contents($port_url);
             $link_data = json_decode($link_json,true);
-            $poi['title'] = preg_replace('/_/',' ', $poi['title']);
-            foreach($link_data['query']['pages'] as $page){
+            // $poi['title'] = preg_replace('/_/',' ', $poi['title']);                   SPOSTATO SOPRA
+            foreach($link_data['query']['pages'] as $page){ 
                 if(isset($page['links'])){
                     foreach($page['links'] as $portal){
                         //Inserire collegamento con $portal['title']
                         $this->client->run(
-                            'MERGE (p:Portale {nome: $portal}) MERGE(poi:Wikipage {nome: $poi}) MERGE (poi)-[r:È_contenuto_in]->(p)', //The query is a required parameter
+                            'MERGE (p:Portale {nome: $portal}) MERGE(poi:Wikipage {nome: $poi}) MERGE (poi)-[r:È_contenuto_in]->(p)',
                             ['portal' => $portal['title'],
                                 'poi' => $poi['title']
                             ],
                         );
-                        if(isset(self::$toiportal[$portal['title']])){
-                            print_r($poi['title']);
-                            echo("<br>");
-                            print_r(self::$toiportal[$portal['title']]);
-                            echo("<br>");
-                            $this->checkEnd[$poi['title']][self::$toiportal[$portal['title']]] = true;
-                        }
-                        if(isset(self::$toiportal[$portal['title']])){                //NEW LINES ON PROGRESS
+                        if(array_key_exists($portal['title'], self::$toiportal)){
                             if(is_array(self::$toiportal[$portal['title']])){
                                 foreach(self::$toiportal[$portal['title']] as $new_portal){
-                                    $this->checkEnd[$data['parse']['title']][$new_portal] = true;
+                                    $this->checkEnd[$poi['title']][$new_portal] = true;
                                     foreach($roots as $seed){
                                         $this->checkEnd[$seed][$new_portal] = true;
                                     }
                                 }
                             }else{
-                                $this->checkEnd[$data['parse']['title']][self::$toiportal[$portal['title']]] = true; //TODO MODIFICARE IN MODO DA CAMBIARE IL SEED CORRETTAMENTE
+                                $this->checkEnd[$poi['title']][self::$toiportal[$portal['title']]] = true; //TODO MODIFICARE IN MODO DA CAMBIARE IL SEED CORRETTAMENTE
                                 foreach($roots as $seed){
                                     $this->checkEnd[$seed][self::$toiportal[$portal['title']]] = true;
                                 }
@@ -357,12 +355,19 @@ final class Crawler{
                     }
                 }
             }
+            $this->client->run('MATCH (poi:Wikipage{nome: $poi}) SET poi.visitato = true',
+                ["poi" => $poi['title']
+                ],
+            );
             echo($poi['title']." processed.");
-            echo("<br>");
-            if($this->check()){
-                echo("Crawler ended correctly");
-                break;
+            echo("<br>\n");
+            if($lastDepth < $poi['depth']){
+                if($this->check()){
+                    echo("Crawler ended correctly");
+                    break;
+                }
             }
+            $lastDepth = $poi['depth'];
         }
     }
 }
