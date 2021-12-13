@@ -52,7 +52,7 @@ final class Crawler{
      *
      * @param string $json
      */
-    public function __construct(string $city = null, string $json = null){
+    public function __construct(string $city = null){
         $this->client = connectNeo4j();
         $this->pdo = connessione();
         $this->checkEnd = [];
@@ -65,28 +65,27 @@ final class Crawler{
         if($city != null){
             $this->loadCityPOI($city);
         }
-        if($json != null){
-            $this->loadJSONPOI($json);
-        }
     }
 
-    /**
-     * Fill the queue with POI extracted by JSON file.
-     *
-     * @param string $json JSON file containing poi info.
-     */
-    public final function loadJSONPOI(string $json){
-        $data = json_decode($json, true);
-        foreach($data[2]['data'] as $elements){
-            if($elements['wikipedia'] != ""){
-                $next = [
-                    "title" => $elements['wikipedia'],
-                    "depth" => 0
-                ];
-                $this->addNewElement($next);
-            }
-        }
-    }
+    // /**
+    //  * Fill the queue with POI extracted by JSON file.
+    //  *
+    //  * @param string $json JSON file containing poi info.
+    //  */
+    // public final function loadJSONPOI(string $json){
+    //     $data = json_decode($json, true);
+    //     foreach($data[2]['data'] as $elements){
+    //         if($elements['wikipedia'] != ""){
+    //             $next = [
+    //                 "title" => $elements['wikipedia'],
+    //                 "depth" => 0
+    //             ];
+    //             $this->addNewElement($next);
+    //         }
+    //     }
+    // }
+
+
     /**
      * Fill the queue with POI extracted by the query specifying the city.
      *
@@ -105,16 +104,16 @@ final class Crawler{
         echo("All seed POI inserted in the queue and ready to be processed.");
     }
 
-    /**
-     * Read the json file stored in the file system and use it to fill the queue.
-     *
-     * @param string $path The path of the file to parse.
-     */
-    public final function readJSONFile(string $path){
-        $json = file_get_contents($path);
-        if($json != false)
-            $this->loadJSONPOI($json);
-    }
+    // /**
+    //  * Read the json file stored in the file system and use it to fill the queue.
+    //  *
+    //  * @param string $path The path of the file to parse.
+    //  */
+    // public final function readJSONFile(string $path){
+    //     $json = file_get_contents($path);
+    //     if($json != false)
+    //         $this->loadJSONPOI($json);
+    // }
 
     /**
      * Add a single element to the queue.
@@ -125,10 +124,11 @@ final class Crawler{
         $this->queue->push($element);
         $this->checkEnd[$element['title']] = self::$toitemplate;
         $query_res = $this->client->run('CREATE (poi:Wikipage {nome: $poi, depth:$poidepth, root:$poi})',
-                                ["poi" => $element['title'],
-                                "poidepth" => $element['depth']
+                                [
+                                    "poi" => $element['title'],
+                                    "poidepth" => $element['depth']
                                 ],
-            );
+        );
         array_push($this->seedlist, $element['title']);
     }
 
@@ -217,13 +217,22 @@ final class Crawler{
      *
      */
     private function check(){
+        $outcome = true;
         foreach($this->seedlist as $poi){
+            $fullpoi = true;
             foreach($this->checkEnd[$poi] as $toi){
-                if(!$toi)
-                    return $toi;
+                if(!$toi){
+                    $fullpoi = false;
+                    $outcome = false;
+                }
+            }
+            if($fullpoi){
+                echo("$poi completamente connesso.");
+                echo("<br>");
+                $this->seedlist = array_diff($this->seedlist, [$poi]);
             }
         }
-        return true;
+        return $outcome;
     }
 
     /**
@@ -346,7 +355,7 @@ final class Crawler{
                                     }
                                 }
                             }else{
-                                $this->checkEnd[$poi['title']][self::$toiportal[$portal['title']]] = true; //TODO MODIFICARE IN MODO DA CAMBIARE IL SEED CORRETTAMENTE
+                                $this->checkEnd[$poi['title']][self::$toiportal[$portal['title']]] = true;
                                 foreach($roots as $seed){
                                     $this->checkEnd[$seed][self::$toiportal[$portal['title']]] = true;
                                 }
