@@ -150,13 +150,13 @@ final class WikipediaClassifier{
                                 $min_distance = $dist*self::MAX_RELEVANCE / $weight;
                         }catch(OutOfBoundsException $e){
                             //DO NOTHING BECAUSE THERE IS NO PATH
-                            echo("No path with current link.");
+                            // echo("No path with current link.");
                         }catch(Throwable $t){
                             echo("Error with query");
                         }
                     }
                     $score = 1 - (float)($min_distance-1)/(float)self::NORMALIZATION_FACTOR;
-                    echo("Score di $name con $id = $score");
+                    echo("Score di $name rispetto al TOI $id = $score");
                     echo("<br>");
                     // QUERY INSERIMENTO PUNTEGGIO NEL DB RELAZIONALE
                     $this->pdo->query("INSERT INTO score_portal(poi, toi, score) VALUES ('$name', '$id', '$score')");
