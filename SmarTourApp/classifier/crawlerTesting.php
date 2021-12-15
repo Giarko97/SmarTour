@@ -234,7 +234,7 @@ final class CrawlerTimeTesting{
      */
     private function getRoots(string $name){
         $t1 = microtime(true);
-        $query_res = $this->client->run('MERGE (poi:Wikipage{nome: $poi}) RETURN poi',
+        $query_res = $this->client->run('MATCH (poi:Wikipage{nome: $poi}) RETURN poi',
                                 [
                                     "poi" => $name
                                 ],
@@ -288,6 +288,7 @@ final class CrawlerTimeTesting{
             $poi = $this->queue->pop();
             $roots = $this->getRoots($poi['title']);
             $roots = array_unique($roots);
+            $rootstring = implode(",", $roots);
             $poi['title'] = preg_replace('/_/',' ', $poi['title']);
             $title = $poi['title'];
             $params = [
@@ -315,19 +316,23 @@ final class CrawlerTimeTesting{
             if(isset($data['parse']['wikitext']['*'])){
                 $data['parse']['wikitext']['*'] = preg_replace("/{{nota disambigua.*?}}/","",$data['parse']['wikitext']['*']); //Rimuove le note di disambiguazione
                 preg_match_all('/\[\[(.*?)\]\]/',$data['parse']['wikitext']['*'], $links);
+                $t2parsing = microtime(true);
+                $this->timeParsing += ($t2parsing-$t1parsing);
                 foreach($links[0] as $link){
+                    $t3parsing = microtime(true);
                     if(preg_match('/\d+.*/', $link) === 0){
                         $clean = preg_replace('/\[\[([^\d|#]*)[|#]?([^\d]*?)\]\]/', '$1', $link);
                         $clean = ucfirst($clean);
                         if(preg_match('/.*secolo.*/', $clean) === 0 and $clean != "" and preg_match('/File:.*/',$link)=== 0 and preg_match('/Immagine:.*/',$link)===0){
-                            $t2parsing = microtime(true);
-                            $this->timeParsing += ($t2parsing-$t1parsing);
+                            $t4parsing = microtime(true);
+                            $this->timeParsing += ($t4parsing-$t3parsing);
                             try{
                                 $t1neo4j = microtime(true);
-                                $query_res = $this->client->run('MERGE (poi:Wikipage{nome: $poi}) MERGE (l:Wikipage{nome: $link}) ON CREATE SET l.prima_visita = true, l.depth=$depth, l.root=poi.root ON MATCH SET l.prima_visita=false, l.root=l.root+","+poi.root WITH poi, l MERGE (poi)-[r:Contiene]->(l) RETURN l',
+                                $query_res = $this->client->run('MERGE (poi:Wikipage{nome: $poi}) MERGE (l:Wikipage{nome: $link}) ON CREATE SET l.prima_visita = true, l.depth=$depth, l.root=$root ON MATCH SET l.prima_visita=false WITH poi, l MERGE (poi)-[r:Contiene]->(l) RETURN l',
                                     ["poi" => $poi['title'],
                                     "link" => $clean,
-                                    "depth" => $poi['depth']+1
+                                    "depth" => $poi['depth']+1,
+                                    "root" => $rootstring
                                     ],
                                 );
                                 $t2neo4j = microtime(true);
@@ -351,6 +356,32 @@ final class CrawlerTimeTesting{
                                 $t2check = microtime(true);
                                 $this->timeCheck += ($t2check-$t1check);
                                 foreach($query_res->first() as $node){
+                                    if((!$node['prima_visita'])===true){
+                                        if(isset($node['root'])){
+                                            if(is_array($node['root'])){
+                                                $linkroots = array_merge($roots, $node['root']);
+                                                $linkroots = array_unique($linkroots);
+                                                $linkstring = implode(",", $linkroots);
+                                                $this->client->run('MATCH (l:Wikipage {nome: $link}) SET l.root=$root',
+                                                    [
+                                                        "link" => $node['nome'],
+                                                        "root" => $linkstring
+                                                    ],
+                                                );
+                                            }else{
+                                                $linkroots = explode(",",$node['root']);
+                                                $linkroots = array_merge($roots, $linkroots);
+                                                $linkroots = array_unique($linkroots);
+                                                $linkstring = implode(",", $linkroots);
+                                                $this->client->run('MATCH (l:Wikipage {nome: $link}) SET l.root=$root',
+                                                    [
+                                                        "link" => $node['nome'],
+                                                        "root" => $linkstring
+                                                    ],
+                                                );
+                                            }
+                                        }
+                                    }
                                     if($node['prima_visita']){
                                         if($poi['depth'] < self::THRESHOLD){
                                             $next = [
@@ -443,9 +474,9 @@ final class CrawlerTimeTesting{
                 echo("Tempo totale per controllo connessione del grafo fino a profondità $lastDepth = $this->timeCheck. \n");
                 echo("Tempo totale per query Neo4j fino a profondità $lastDepth = $this->timeNeo4j. \n");
                 echo("Tempo totale per query SQL fino a profondità $lastDepth = $this->timeSQL. \n");
-                echo("Tempo totale per parsing wikitext fino a profondità $lastDepth = $this->timeParsing");
+                echo("Tempo totale per parsing wikitext fino a profondità $lastDepth = $this->timeParsing\n");
                 if($this->check()){
-                    echo("Crawler ended correctly");
+                    echo("Crawler ended correctly.\n");
                     break;
                 }
             }
